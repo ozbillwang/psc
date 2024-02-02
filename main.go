@@ -27,13 +27,10 @@ func checkPasswordStrength(apiKey, password string) (string, error) {
 		"max_tokens": 50,
 	}
 
-	// Debug prints
 	payloadBytes, err := json.Marshal(payload)
 	if err != nil {
 		return "", err
 	}
-	// fmt.Println("Request Payload:")
-	// fmt.Println(string(payloadBytes))
 
 	// Make the OpenAI API request
 	req, err := http.NewRequest("POST", apiEndpoint, bytes.NewBuffer(payloadBytes))
@@ -63,10 +60,6 @@ func checkPasswordStrength(apiKey, password string) (string, error) {
 		return "", err
 	}
 
-	// Debug prints
-	// fmt.Println("Response Body:")
-	// fmt.Println(response)
-
 	// Extract the assistant's content from the API response
 	assistantContent, ok := response["choices"].([]interface{})[0].(map[string]interface{})["message"].(map[string]interface{})["content"].(string)
 	if !ok {
@@ -85,10 +78,11 @@ func main() {
 	if apiKey == "" {
 		err := godotenv.Load()
 		if err != nil {
-			return "", fmt.Errorf("error loading .env file")
+			log.Fatal("Error loading .env file")
 		}
 		apiKey = os.Getenv("OPENAI_API_KEY")
 	}
+
 	if apiKey == "" {
 		fmt.Println("Please provide the OpenAI API key in the .env file.")
 		os.Exit(1)
