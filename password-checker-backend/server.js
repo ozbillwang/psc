@@ -9,12 +9,10 @@ app.use(cors()); // This will allow all domains. For production, configure allow
 
 const PORT = process.env.PORT || 5000;
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY; // Your OpenAI API key stored in .env
+const SECRET_KEY = process.env.SECRET_KEY; // Use SECRET_KEY from .env
 const jwt = require('jsonwebtoken');
 
 app.use(express.json());
-
-// Secret key for JWT signing and encryption
-const SECRET_KEY = 'SERCFERWERG13,423t43s8dfqh343%'; // Store this securely and keep it secret
 
 // Dummy authentication endpoint to get a token
 app.get('/auth', (req, res) => {
