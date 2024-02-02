@@ -1,4 +1,7 @@
+># Notes: The tool sends passwords to OpenAI in plain text. Using this tool carries the risk of exposing your password. Please be aware of the potential risks.
+
 # Password-Strength-Checker
+
 Check the password strength via OpenAI
 
 ### Usage
