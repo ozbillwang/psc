@@ -4,7 +4,45 @@
 
 Check the password strength via OpenAI
 
-### Usage
+## Usage
+
+### Prepare your OpenAI API Key
+
+Way 1 is, set environment variable
+```
+export OPENAI_API_KEY="<replace with your openai api key>"
+```
+
+Way 2 is, put the key to local .env
+```
+mv .env.sample .env
+```
+
+update the API key with yours
+
+### Run psc tool directly
+
+Download the binary from [release](https://github.com/AbacusGPT/Password-Strength-Checker/releases)
+
+Choice the suitable OS for your environment
+
+uncompress and run it
+```
+# for example, from my macbook
+$ wget https://github.com/AbacusGPT/Password-Strength-Checker/releases/download/v1.0.10/psc-1.0.10-darwin-amd64.tar.gz 
+
+$ tar zxvf psc-1.0.10-darwin-amd64.tar.gz
+
+$ mv psc-1.0.10-darwin-amd64 psc
+
+$ ./psc --password 'Pass!234'
+weak
+
+$ ./psc --password 62sWJFk28gVnXK3u
+strong
+```
+
+### build by yourself
 
 * Clone this repo
 
@@ -12,7 +50,14 @@ Check the password strength via OpenAI
 git clone https://github.com/AbacusGPT/Password-Strength-Checker
 ```
 
-* Prepare your OpenAI API and put to local .env
+* Prepare your OpenAI API Key
+
+Way 1 is, set environment variable
+```
+export OPENAI_API_KEY="<replace with your openai api key>"
+```
+
+Way 2 is, put the key to local .env
 ```
 mv .env.sample .env
 ```
