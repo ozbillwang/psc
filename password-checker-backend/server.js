@@ -37,6 +37,7 @@ const verifyToken = (req, res, next) => {
     req.token = bearerToken;
     jwt.verify(req.token, SECRET_KEY, (err, authData) => {
       if (err) {
+        console.log("JWT Verification Error:", err.message); // Log the error message for debugging
         res.sendStatus(403); // Forbidden if token is invalid or expired
       } else {
         req.authData = authData;
@@ -48,7 +49,7 @@ const verifyToken = (req, res, next) => {
   }
 };
 
-app.post('/check-password', async (req, res) => {
+app.post('/check-password', verifyToken, async (req, res) => {
   console.log(req.body); // Log the request body to see what's being received
   const password = req.body.password; // Make sure this line is present and uncommented
 
