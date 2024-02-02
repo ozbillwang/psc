@@ -29,11 +29,11 @@ Choice the suitable OS for your environment
 uncompress and run it
 ```
 # for example, from my macbook
-$ wget https://github.com/AbacusGPT/Password-Strength-Checker/releases/download/v1.0.10/psc-1.0.10-darwin-amd64.tar.gz 
+$ wget https://github.com/AbacusGPT/Password-Strength-Checker/releases/download/v1.0.13/psc-1.0.13-darwin-amd64.tar.gz 
 
-$ tar zxvf psc-1.0.10-darwin-amd64.tar.gz
+$ tar zxvf psc-1.0.13-darwin-amd64.tar.gz
 
-$ mv psc-1.0.10-darwin-amd64 psc
+$ mv psc-1.0.13-darwin-amd64 psc
 
 $ ./psc --password 'Pass!234'
 weak
