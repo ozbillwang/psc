@@ -32,8 +32,8 @@ func checkPasswordStrength(apiKey, password string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	fmt.Println("Request Payload:")
-	fmt.Println(string(payloadBytes))
+	// fmt.Println("Request Payload:")
+	// fmt.Println(string(payloadBytes))
 
 	// Make the OpenAI API request
 	req, err := http.NewRequest("POST", apiEndpoint, bytes.NewBuffer(payloadBytes))
@@ -64,8 +64,8 @@ func checkPasswordStrength(apiKey, password string) (string, error) {
 	}
 
 	// Debug prints
-	fmt.Println("Response Body:")
-	fmt.Println(response)
+	// fmt.Println("Response Body:")
+	// fmt.Println(response)
 
 	// Extract the assistant's content from the API response
 	assistantContent, ok := response["choices"].([]interface{})[0].(map[string]interface{})["message"].(map[string]interface{})["content"].(string)
