@@ -42,6 +42,11 @@ $ ./psc --password 62sWJFk28gVnXK3u
 strong
 ```
 
+Only for mac user, you need allow applications downloaded from "App Store and identified developers" in "Privacy & Security" setting.
+
+![image](https://github.com/AbacusGPT/Password-Strength-Checker/assets/8954908/56f9c668-550b-47f0-9710-c2dde4e91444)
+
+
 ### build by yourself
 
 * Clone this repo
