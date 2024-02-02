@@ -78,15 +78,17 @@ func checkPasswordStrength(apiKey, password string) (string, error) {
 
 
 func main() {
-	// Load environment variables from .env file
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env file")
-	}
 
-	// Retrieve the OpenAI API key from environment variables
 	apiKey := os.Getenv("OPENAI_API_KEY")
 
+	// If OPENAI_API_KEY is not set or is empty, check the .env file
+	if apiKey == "" {
+		err := godotenv.Load()
+		if err != nil {
+			return "", fmt.Errorf("error loading .env file")
+		}
+		apiKey = os.Getenv("OPENAI_API_KEY")
+	}
 	if apiKey == "" {
 		fmt.Println("Please provide the OpenAI API key in the .env file.")
 		os.Exit(1)
