@@ -27,4 +27,8 @@ You should see a binary file `psc` generated locally
 * run the test now
 ```
 ./psc --password password
+weak
+
+$ ./psc --password 62sWJFk28gVnXK3u
+strong
 ```
