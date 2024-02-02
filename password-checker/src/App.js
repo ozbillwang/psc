@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import './App.css'; // Import the CSS file
 
 const App = () => {
   const [password, setPassword] = useState('');
   const [strength, setStrength] = useState('');
   const [token, setToken] = useState('');
+  const strengthColor = strength === 'strong' ? 'green' : strength === 'weak' ? 'red' : 'black';
+
 
   // Function to get token from backend
   const getToken = async () => {
@@ -39,15 +42,16 @@ const App = () => {
 
   return (
     <div className="App">
-      <input
-        type="password"
-        value={password}
-        onChange={e => setPassword(e.target.value)}
-        placeholder="Enter password"
-      />
-      <button onClick={checkPasswordStrength}>Check Strength</button>
-      <p>Password Strength: {strength}</p>
-    </div>
+    <h2>Password Strength Checker</h2>
+    <input
+      type="password"
+      value={password}
+      onChange={e => setPassword(e.target.value)}
+      placeholder="Enter password"
+    />
+    <button onClick={checkPasswordStrength}>Check Strength</button>
+    <p className="strength" style={{ color: strengthColor }}>Password Strength: {strength}</p>
+  </div>
   );
 };
 
