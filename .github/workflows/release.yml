@@ -22,11 +22,11 @@ jobs:
 
     - name: Build
       run: |
-        go build -o release_folder/psc
-        GOOS=windows GOARCH=amd64 go build -o release_folder/psc.exe
-        GOOS=darwin GOARCH=amd64 go build -o release_folder/psc_mac
-        GOOS=linux GOARCH=amd64 go build -o release_folder/psc_linux
-        GOOS=linux GOARCH=arm64 go build -o release_folder/psc_linux_arm64
+        GOOS=windows GOARCH=amd64 go build -o release_folder/psc-1.0.${{ github.run_number }}-windows-amd64.exe
+        GOOS=darwin GOARCH=amd64 go build -o release_folder/psc-1.0.${{ github.run_number }}-darwin-amd64
+        GOOS=darwin GOARCH=arm64 go build -o release_folder/psc-1.0.${{ github.run_number }}-darwin-arm64
+        GOOS=linux GOARCH=amd64 go build -o release_folder/psc-1.0.${{ github.run_number }}-linux-amd64
+        GOOS=linux GOARCH=arm64 go build -o release_folder/psc-1.0.${{ github.run_number }}-linux-arm64
 
     - name: Create Release
       id: create_release
@@ -34,63 +34,65 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: v${{ github.run_number }}
-        release_name: Release ${{ github.run_number }}
+        tag_name: v1.0.${{ github.run_number }}
+        release_name: Release 1.0.${{ github.run_number }}
         draft: false
         prerelease: false
 
-    - name: Upload Release Assets
-      id: upload-release-asset
+    - name: Create tar.gz archive
+      run: |
+        tar -czf release_folder/psc-1.0.${{ github.run_number }}-darwin-amd64.tar.gz -C release_folder/ psc-1.0.${{ github.run_number }}-darwin-amd64
+        tar -czf release_folder/psc-1.0.${{ github.run_number }}-darwin-arm64.tar.gz -C release_folder/ psc-1.0.${{ github.run_number }}-darwin-arm64
+        tar -czf release_folder/psc-1.0.${{ github.run_number }}-linux-amd64.tar.gz -C release_folder/ psc-1.0.${{ github.run_number }}-linux-amd64
+        tar -czf release_folder/psc-1.0.${{ github.run_number }}-linux-arm64.tar.gz -C release_folder/ psc-1.0.${{ github.run_number }}-linux-arm64
+        tar -czf release_folder/psc-1.0.${{ github.run_number }}-windows-amd64.tar.gz -C release_folder/ psc-1.0.${{ github.run_number }}-windows-amd64.exe
+
+    - name: Upload Release Assets (MacOS amd64)
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: release_folder/psc
-        asset_name: psc
-        asset_content_type: application/octet-stream
+        asset_path: release_folder/psc-1.0.${{ github.run_number }}-darwin-amd64.tar.gz
+        asset_name: psc-1.0.${{ github.run_number }}-darwin-amd64.tar.gz
+        asset_content_type: application/gzip
 
-    - name: Upload Windows Release Asset
-      id: upload-release-asset-windows
+    - name: Upload Release Assets (MacOS arm64)
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: release_folder/psc.exe
-        asset_name: psc.exe
-        asset_content_type: application/octet-stream
+        asset_path: release_folder/psc-1.0.${{ github.run_number }}-darwin-arm64.tar.gz
+        asset_name: psc-1.0.${{ github.run_number }}-darwin-arm64.tar.gz
+        asset_content_type: application/gzip
 
-    - name: Upload macOS Release Asset
-      id: upload-release-asset-mac
+    - name: Upload Release Assets (Linux amd64)
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: release_folder/psc_mac
-        asset_name: psc_mac
-        asset_content_type: application/octet-stream
+        asset_path: release_folder/psc-1.0.${{ github.run_number }}-linux-amd64.tar.gz
+        asset_name: psc-1.0.${{ github.run_number }}-linux-amd64.tar.gz
+        asset_content_type: application/gzip
 
-    - name: Upload Linux Release Asset (AMD64)
-      id: upload-release-asset-linux
+    - name: Upload Release Assets (Linux arm64)
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: release_folder/psc_linux
-        asset_name: psc_linux
-        asset_content_type: application/octet-stream
+        asset_path: release_folder/psc-1.0.${{ github.run_number }}-linux-arm64.tar.gz
+        asset_name: psc-1.0.${{ github.run_number }}-linux-arm64.tar.gz
+        asset_content_type: application/gzip
 
-    - name: Upload Linux Release Asset (ARM64)
-      id: upload-release-asset-linux-arm64
+    - name: Upload Release Assets (Windows amd64)
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: release_folder/psc_linux_arm64
-        asset_name: psc_linux_arm64
-        asset_content_type: application/octet-stream
-
+        asset_path: release_folder/psc-1.0.${{ github.run_number }}-windows-amd64.tar.gz
+        asset_name: psc-1.0.${{ github.run_number }}-windows-amd64.tar.gz
+        asset_content_type: application/gzip
