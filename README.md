@@ -38,7 +38,7 @@ $ mv psc-1.0.10-darwin-amd64 psc
 $ ./psc --password 'Pass!234'
 weak
 
-$ ./psc --password 62sWJFk28gVnXK3u
+$ ./psc --password '62sWJFk28gVnXK3u'
 strong
 ```
 
@@ -79,9 +79,9 @@ You should see a binary file `psc` generated locally
 
 * run the test now
 ```
-./psc --password password
+./psc --password 'Pass!234'
 weak
 
-$ ./psc --password 62sWJFk28gVnXK3u
+$ ./psc --password '62sWJFk28gVnXK3u'
 strong
 ```
