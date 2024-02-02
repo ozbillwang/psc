@@ -35,14 +35,6 @@ const App = () => {
       console.error("Error:", error);
       setStrength('Error checking password strength.');
     }
-  
-    try {
-      const response = await axios.post(backendEndpoint, { password });
-      setStrength(response.data.strength);
-    } catch (error) {
-      console.error("Error:", error);
-      setStrength('Error checking password strength.');
-    }
   };
 
   return (
