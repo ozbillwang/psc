@@ -6,6 +6,7 @@ const app = express();
 
 const cors = require('cors');
 app.use(cors()); // This will allow all domains. For production, configure allowed origins.
+app.options('*',cors())// include before other routes
 
 const PORT = process.env.PORT || 5000;
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY; // Your OpenAI API key stored in .env
