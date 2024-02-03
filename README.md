@@ -2,86 +2,13 @@
 
 # Password-Strength-Checker (psc)
 
-Check the password strength via OpenAI
+The Password-Strength-Checker (psc) is a tool designed to evaluate the strength of passwords using OpenAI's powerful language models. This repository is structured into two main components: `password-checker` for the frontend application and `password-checker-backend` for the backend service that interfaces with the OpenAI API.
 
 ## Usage
 
-### Prepare your OpenAI API Key
+### Running the Tool
 
-Way 1 is, set environment variable
-```
-export OPENAI_API_KEY="<replace with your openai api key>"
-```
+To run the psc tool, you'll need to start both the frontend and backend services. Detailed instructions are provided in the respective README.md files within the password-checker and password-checker-backend directories.
 
-Way 2 is, put the key to local .env
-```
-mv .env.sample .env
-```
-
-update the API key with yours
-
-### Run psc tool directly
-
-Download the binary from [release](https://github.com/AbacusGPT/Password-Strength-Checker/releases)
-
-Choice the suitable OS for your environment
-
-uncompress and run it
-```
-# for example, from my macbook
-$ wget https://github.com/AbacusGPT/Password-Strength-Checker/releases/download/v1.0.13/psc-1.0.13-darwin-amd64.tar.gz 
-
-$ tar zxvf psc-1.0.13-darwin-amd64.tar.gz
-
-$ mv psc-1.0.13-darwin-amd64 psc
-
-$ ./psc --password 'Pass!234'
-weak
-
-$ ./psc --password '62sWJFk28gVnXK3u'
-strong
-```
-
-Only for mac user, you need allow applications downloaded from "App Store and identified developers" in "Privacy & Security" setting.
-
-![image](https://github.com/AbacusGPT/Password-Strength-Checker/assets/8954908/56f9c668-550b-47f0-9710-c2dde4e91444)
-
-
-### build by yourself
-
-* Clone this repo
-
-```
-git clone https://github.com/AbacusGPT/Password-Strength-Checker
-```
-
-* Prepare your OpenAI API Key
-
-Way 1 is, set environment variable
-```
-export OPENAI_API_KEY="<replace with your openai api key>"
-```
-
-Way 2 is, put the key to local .env
-```
-mv .env.sample .env
-```
-
-update the API key with yours
-
-* run the build
-
-```
-go build -o psc .
-```
-
-You should see a binary file `psc` generated locally
-
-* run the test now
-```
-./psc --password 'Pass!234'
-weak
-
-$ ./psc --password '62sWJFk28gVnXK3u'
-strong
-```
+* For the frontend application, navigate to the password-checker directory and follow the setup instructions.
+* For the backend service, head over to the password-checker-backend directory and follow the instructions to get it up and running.
