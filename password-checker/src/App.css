@@ -8,7 +8,7 @@
   background-color: #f9f9f9;
 }
 
-input[type="password"] {
+input[type="text"] {
   padding: 10px;
   margin: 10px 0;
   width: 80%;

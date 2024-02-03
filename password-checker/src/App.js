@@ -25,7 +25,14 @@ const App = () => {
   }, []);
 
   const checkPasswordStrength = async () => {
-    const backendEndpoint = "http://localhost:5000/check-password"; // Use the full URL if your backend is hosted separately
+
+     // Check if the password is empty and return early if true
+    if (!password) {
+      setStrength('Password cannot be empty'); // Set strength to empty if password is empty
+      return; // Stop the function from proceeding further
+    }
+
+    const backendEndpoint = `${process.env.REACT_APP_BACKEND_URL}/check-password`; // Use the full URL if your backend is hosted separately
 
     try {
       const response = await axios.post(backendEndpoint, { password }, {
@@ -44,7 +51,7 @@ const App = () => {
     <div className="App">
     <h2>Password Strength Checker</h2>
     <input
-      type="password"
+      type="text"
       value={password}
       onChange={e => setPassword(e.target.value)}
       placeholder="Enter password"
