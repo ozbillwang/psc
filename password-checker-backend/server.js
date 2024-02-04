@@ -7,11 +7,11 @@ const app = express();
 const cors = require('cors');
 app.use(cors()); // This will allow all domains. For production, configure allowed origins.
 
-app.use((req, res, next) => {
-    if (req.method === 'OPTIONS') {
-        res.sendStatus(200);
-    } 
-});
+# app.use((req, res, next) => {
+#     if (req.method === 'OPTIONS') {
+#         res.sendStatus(200);
+#     } 
+# });
 
 app.options('*',cors())// include before other routes
 
