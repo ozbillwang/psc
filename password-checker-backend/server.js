@@ -5,8 +5,8 @@ const axios = require('axios');
 const app = express();
 
 const cors = require('cors');
-app.use(cors()); // This will allow all domains. For production, configure allowed origins.
-app.options('*',cors())// include before other routes
+app.use(cors());
+app.options('*',cors());
 
 // const corsOptions = {
 //     origin: '*',
