@@ -1,12 +1,12 @@
 // server.js
-require('dotenv').config();
-const express = require('express');
-const axios = require('axios');
+require("dotenv").config();
+const express = require("express");
+const axios = require("axios");
 const app = express();
 
-const cors = require('cors');
+const cors = require("cors");
 app.use(cors());
-app.options('*',cors());
+app.options("*", cors());
 
 // const corsOptions = {
 //     origin: '*',
@@ -14,29 +14,36 @@ app.options('*',cors());
 //     credentials: true,
 //     enablePreflight: true
 // };
-// 
+//
 // app.use(cors(corsOptions));
 // app.options('*',cors(corsOptions));
+
+app.options('/check-password', cors(), (req, res) => {
+  res.header('Access-Control-Allow-Origin', 'https://psc.ahead.guru');
+  res.header('Access-Control-Allow-Methods', 'OPTIONS, POST');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.status(200).end();
+});
 
 console.log("stage #1");
 
 const PORT = process.env.PORT || 5000;
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY; // Your OpenAI API key stored in .env
 const SECRET_KEY = process.env.SECRET_KEY; // Use SECRET_KEY from .env
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 
 app.use(express.json());
 
 // Dummy authentication endpoint to get a token
-app.get('/auth', (req, res) => {
+app.get("/auth", (req, res) => {
   const payload = {
-    user: 'user_id', // Typically, you would use user details here
-    role: 'user_role' // Example role
+    user: "user_id", // Typically, you would use user details here
+    role: "user_role", // Example role
   };
 
-  const token = jwt.sign(payload, SECRET_KEY, { expiresIn: '1h' }); // Token expires in 1 hour
+  const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "1h" }); // Token expires in 1 hour
 
-  console.log(token)
+  console.log(token);
 
   res.send({ token });
 });
@@ -45,10 +52,10 @@ console.log("stage 2");
 
 // Middleware to verify token
 const verifyToken = (req, res, next) => {
-  const bearerHeader = req.headers['authorization'];
+  const bearerHeader = req.headers["authorization"];
 
-  if (typeof bearerHeader !== 'undefined') {
-    const bearerToken = bearerHeader.split(' ')[1];
+  if (typeof bearerHeader !== "undefined") {
+    const bearerToken = bearerHeader.split(" ")[1];
     req.token = bearerToken;
     jwt.verify(req.token, SECRET_KEY, (err, authData) => {
       if (err) {
@@ -64,7 +71,7 @@ const verifyToken = (req, res, next) => {
   }
 };
 
-app.post('/check-password', verifyToken, async (req, res) => {
+app.post("/check-password", verifyToken, async (req, res) => {
   console.log(req.body); // Log the request body to see what's being received
   const password = req.body.password; // Make sure this line is present and uncommented
 
@@ -73,7 +80,10 @@ app.post('/check-password', verifyToken, async (req, res) => {
   const payload = {
     messages: [
       { role: "system", content: "You are a helpful assistant." },
-      { role: "user", content: `Check if the password '${password}' is strong, or weak. Please only answer 'strong', 'weak'.` },
+      {
+        role: "user",
+        content: `Check if the password '${password}' is strong, or weak. Please only answer 'strong', 'weak'.`,
+      },
     ],
     model: "gpt-3.5-turbo",
     max_tokens: 50,
@@ -82,9 +92,9 @@ app.post('/check-password', verifyToken, async (req, res) => {
   try {
     const response = await axios.post(apiEndpoint, payload, {
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${OPENAI_API_KEY}`,
-        'Access-Control-Allow-Origin': '*',
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${OPENAI_API_KEY}`,
+        "Access-Control-Allow-Origin": "*",
       },
     });
 
@@ -92,7 +102,7 @@ app.post('/check-password', verifyToken, async (req, res) => {
     res.send({ strength: assistantContent });
   } catch (error) {
     console.error("Error:", error);
-    res.status(500).send({ error: 'Error checking password strength.' });
+    res.status(500).send({ error: "Error checking password strength." });
   }
 });
 
