@@ -5,18 +5,18 @@ const axios = require('axios');
 const app = express();
 
 const cors = require('cors');
-app.use(cors()); // This will allow all domains. For production, configure allowed origins.
-app.options('*',cors())// include before other routes
+//app.use(cors()); // This will allow all domains. For production, configure allowed origins.
+//app.options('*',cors())// include before other routes
 
-// const corsOptions = {
-//     origin: '*',
-//     allowedHeaders: ["Content-Type", "Authorization", "Access-Control-Allow-Methods", "Access-Control-Request-Headers"],
-//     credentials: true,
-//     enablePreflight: true
-// };
-// 
-// app.use(cors(corsOptions));
-// app.options('*',cors(corsOptions));
+const corsOptions = {
+    origin: '*',
+    allowedHeaders: ["Content-Type", "Authorization", "Access-Control-Allow-Methods", "Access-Control-Request-Headers"],
+    credentials: true,
+    enablePreflight: true
+};
+
+app.use(cors(corsOptions));
+app.options('*',cors(corsOptions));
 
 const PORT = process.env.PORT || 5000;
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY; // Your OpenAI API key stored in .env
@@ -69,8 +69,8 @@ app.post('/check-password', verifyToken, async (req, res) => {
       { role: "system", content: "You are a helpful assistant." },
       { role: "user", content: `Check if the password '${password}' is strong, or weak. Please only answer 'strong', 'weak'.` },
     ],
-    model: "gpt-4",
-    max_tokens: 500,
+    model: "gpt-3.5-turbo",
+    max_tokens: 50,
   };
 
   try {
