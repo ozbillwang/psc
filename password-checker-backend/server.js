@@ -64,11 +64,18 @@ const verifyToken = (req, res, next) => {
   }
 };
 
+
+app.options('/check-password', verifyToken, async (req, res) => {
+  // Set CORS headers
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'OPTIONS, POST');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+
+  // Respond to the preflight request with a 200 status
+  res.status(200).end();
+});
+
 app.post('/check-password', verifyToken, async (req, res) => {
-  if (req.method === 'OPTIONS') {
-    res.status(200).end();
-    return;
-  }
   console.log(req.body); // Log the request body to see what's being received
   const password = req.body.password; // Make sure this line is present and uncommented
 
