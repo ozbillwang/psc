@@ -9,7 +9,7 @@ const cors = require('cors');
 //app.options('*',cors())// include before other routes
 
 const corsOptions = {
-    origin:'*',
+    origin: '*',
     allowedHeaders: ["Content-Type", "Authorization", "Access-Control-Allow-Methods", "Access-Control-Request-Headers"],
     credentials: true,
     enablePreflight: true
