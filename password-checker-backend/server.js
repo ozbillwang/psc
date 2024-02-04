@@ -65,6 +65,10 @@ const verifyToken = (req, res, next) => {
 };
 
 app.post('/check-password', verifyToken, async (req, res) => {
+  if (req.method === 'OPTIONS') {
+    res.status(200).end();
+    return;
+  }
   console.log(req.body); // Log the request body to see what's being received
   const password = req.body.password; // Make sure this line is present and uncommented
 
