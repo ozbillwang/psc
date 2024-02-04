@@ -5,18 +5,20 @@ const axios = require('axios');
 const app = express();
 
 const cors = require('cors');
-//app.use(cors()); // This will allow all domains. For production, configure allowed origins.
-//app.options('*',cors())// include before other routes
+app.use(cors()); // This will allow all domains. For production, configure allowed origins.
+app.options('*',cors())// include before other routes
 
-const corsOptions = {
-    origin: '*',
-    allowedHeaders: ["Content-Type", "Authorization", "Access-Control-Allow-Methods", "Access-Control-Request-Headers"],
-    credentials: true,
-    enablePreflight: true
-};
+# const corsOptions = {
+#     origin: '*',
+#     allowedHeaders: ["Content-Type", "Authorization", "Access-Control-Allow-Methods", "Access-Control-Request-Headers"],
+#     credentials: true,
+#     enablePreflight: true
+# };
+# 
+# app.use(cors(corsOptions));
+# app.options('*',cors(corsOptions));
 
-app.use(cors(corsOptions));
-app.options('*',cors(corsOptions));
+console.log("stage #1);
 
 const PORT = process.env.PORT || 5000;
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY; // Your OpenAI API key stored in .env
@@ -34,8 +36,12 @@ app.get('/auth', (req, res) => {
 
   const token = jwt.sign(payload, SECRET_KEY, { expiresIn: '1h' }); // Token expires in 1 hour
 
+  console.log(token)
+
   res.send({ token });
 });
+
+console.log("stage 2");
 
 // Middleware to verify token
 const verifyToken = (req, res, next) => {
