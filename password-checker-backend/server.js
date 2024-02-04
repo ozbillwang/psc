@@ -19,13 +19,11 @@ app.options("*", cors());
 // app.options('*',cors(corsOptions));
 
 app.options('/check-password', cors(), (req, res) => {
-  res.header('Access-Control-Allow-Origin', 'https://psc.ahead.guru');
+  res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'OPTIONS, POST');
   res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   res.status(200).end();
 });
-
-console.log("stage #1");
 
 const PORT = process.env.PORT || 5000;
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY; // Your OpenAI API key stored in .env
@@ -47,8 +45,6 @@ app.get("/auth", (req, res) => {
 
   res.send({ token });
 });
-
-console.log("stage 2");
 
 // Middleware to verify token
 const verifyToken = (req, res, next) => {
